@@ -42,6 +42,7 @@ iface = gr.Interface(fn=predict_fraud,
                      inputs="file",
                      outputs="text",
                      title="Credit Card Fraud Detection",
+                     allow_flagging="manual",
                      description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions.")
 
 iface.launch(share=True)
