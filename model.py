@@ -42,9 +42,9 @@ print("y_train shape:", y_train.shape)
 print("X_test shape:", X_test.shape)
 print("y_test shape:", y_test.shape)
 
-acc_baseline = y_train.value_counts(normalize=True).max()
 
-print("Baseline Accuracy:", round(acc_baseline, 4))
+
+
 
 clf = LogisticRegression()
 with open('model.pkl', 'wb') as f:
