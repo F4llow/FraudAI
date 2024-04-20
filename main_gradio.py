@@ -73,7 +73,7 @@ def predict_fraud(uploaded_file):
 iface = gr.Interface(fn=predict_fraud,
                      inputs=gr.File(label="Upload a CSV File"),
                      outputs=["text", "image", "image"],
-                     title="Credit Card Fraud Detection: Prediction Labels, Cumulative Predictions Over Time, and Cumulative Distribution of Predictions",
+                     title="Credit Card Fraud Detection",
                      allow_flagging="manual",
                      description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.")
 
