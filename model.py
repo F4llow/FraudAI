@@ -61,4 +61,7 @@ print(f"Training accuracy: {round(acc_train, 4)}")
 print(f"Test accuracy: {round(acc_test, 4)}")
 
 
+with open('model.pkl', 'wb') as f:
+    pickle.dump(clf, f)
+
 
