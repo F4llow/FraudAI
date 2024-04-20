@@ -60,7 +60,7 @@ def predict_fraud(uploaded_file):
     plt.title('Cumulative Distribution of Predictions')
     plt.xlabel('Predicted Class')
     plt.ylabel('Count')
-    plt.xticks([0, 1], ['Not Fraudulent', 'Fraudulent'])
+    plt.xticks([0, 1], ['Fraudulent', 'Not Fraudulent'])
     plt.tight_layout()
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
