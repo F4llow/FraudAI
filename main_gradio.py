@@ -76,6 +76,13 @@ iface = gr.Interface(fn=predict_fraud,
                      title="Credit Card Fraud Detection",
                      allow_flagging="manual",
                      description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.")
-
-iface.launch(share=True)
-
+local = True
+if local:
+    iface.launch(share=True)
+else:
+    iface.launch(share=False,
+                        debug=False, 
+                        server_port=443,
+                        ssl_certfile="../certs/fullchain.pem",
+                        ssl_keyfile="../certs/privkey.pem",
+                        server_name="capitalsavvy.app")
