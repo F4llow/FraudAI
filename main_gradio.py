@@ -5,6 +5,11 @@ from sklearn.preprocessing import StandardScaler
 import gradio as gr
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
+
+# PHILIP ONLY, DO NOT USE THE PHILIP FLAG UNLESS YOU ARE PHILIP
+# If the philip flag is passed, use the settings to deploy to racknerd.
+remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 
 # Load the trained model
 with open("model.pkl", "rb") as f:
@@ -76,13 +81,14 @@ iface = gr.Interface(fn=predict_fraud,
                      title="Credit Card Fraud Detection",
                      allow_flagging="manual",
                      description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.")
-local = True
-if local:
-    iface.launch(share=True)
-else:
+
+# If the app is running on racknerd, use server settings. Otherwise, run locally.
+if remote:
     iface.launch(share=False,
-                        debug=False, 
-                        server_port=443,
-                        ssl_certfile="../certs/fullchain.pem",
-                        ssl_keyfile="../certs/privkey.pem",
-                        server_name="capitalsavvy.app")
+                    debug=False, 
+                    server_port=443,
+                    ssl_certfile="../certs/fullchain.pem",
+                    ssl_keyfile="../certs/privkey.pem",
+                    server_name="capitalsavvy.app")
+else:
+    iface.launch(share=True)
