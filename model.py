@@ -47,7 +47,7 @@ acc_baseline = y_train.value_counts(normalize=True).max()
 print("Baseline Accuracy:", round(acc_baseline, 4))
 
 clf = LogisticRegression()
-with open('model.pbk', 'wb') as f:
+with open('model.pkl', 'wb') as f:
     pickle.dump(clf, f)
 
 clf.fit(X_train, y_train)
