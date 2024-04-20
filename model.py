@@ -1,8 +1,6 @@
 import numpy as np 
 import pandas as pd
 import pickle
-#import seaborn as sns
-#import matplotlib.pyplot as plt  
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
@@ -22,22 +20,6 @@ df.isna().sum()
 
 df.describe()
 
-#corr = df.drop(columns=['Class']).corr()
-#sns.heatmap(corr);
-#plt.style.use("seaborn")
-
-#plt.rcParams['figure.figsize']= (22,11)
-
-#plt.title("Correlation Heatmap",fontsize=18, weight= 'bold')
-
-#sns.heatmap(df.corr(), cmap="BuPu", annot=True)
-
-#plt.show()
-
-#df['Class'].value_counts(normalize= True).plot(kind= 'bar')
-#plt.xlabel("Class Distribution")
-#plt.ylabel("Frequancy")
-#plt.title("Class balance");
 
 if 'id' in df.columns:
     df = df.drop(['id'], axis=1)
@@ -65,6 +47,8 @@ acc_baseline = y_train.value_counts(normalize=True).max()
 print("Baseline Accuracy:", round(acc_baseline, 4))
 
 clf = LogisticRegression()
+with open('model.pbk', 'wb') as f:
+    pickle.dump(clf, f)
 
 clf.fit(X_train, y_train)
 
@@ -76,30 +60,5 @@ acc_test = clf.score(X_test, y_test)
 print(f"Training accuracy: {round(acc_train, 4)}")
 print(f"Test accuracy: {round(acc_test, 4)}")
 
-"""
-ConfusionMatrixDisplay.from_estimator(
-
-    clf,
-    X_test,
-    y_test
-
-);
-
-print(classification_report(
-
-    y_test,
-    clf.predict(X_test)
-
-))
-
-features = X_test.columns
-importances = clf.coef_[0]
-
-feat_imp = pd.Series(importances, index=features).sort_values()
-feat_imp.tail().plot(kind='barh')
-plt.xlabel("Scale Importance")
-plt.ylabel("Feature")
-plt.title("Feature Importance");
-"""
 
 
