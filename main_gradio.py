@@ -97,7 +97,10 @@ iface = gr.Interface(fn=predict_fraud,
                      outputs=["text", "image", "image"],
                      title="Credit Card Fraud Detection",
                      allow_flagging="manual",
+                     css="footer {visibility: hidden}",
                      description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.")
+                     
+
 
 # If the app is running on racknerd, use server settings. Otherwise, run locally.
 if remote:
