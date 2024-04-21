@@ -81,7 +81,7 @@ def predict_fraud(uploaded_file):
 
     # Plotting 
     plt.figure(figsize=(10, 6)) 
-    data = [2, 50] 
+    data = [2, 55] 
     plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green']) 
     plt.legend() 
     plt.grid(True) 
@@ -89,7 +89,18 @@ def predict_fraud(uploaded_file):
     plt.savefig("fraud.png") 
     plt.show()
 
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png"
+    plt.figure(figsize=(10, 6))
+    labels = ['Fraud', 'Not Fraud']
+    plt.scatter(labels, data, color='red')
+    plt.xlabel('Category')
+    plt.ylabel('Count')
+    plt.title('Fraud vs Not Fraud')
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("fraud_scatter.png")
+    plt.show()
+
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
 
 
 # Create the Gradio interface
@@ -101,6 +112,7 @@ iface = gr.Interface(
         gr.Text(label="Predictions"),
         gr.Image(label="Graph"),
         gr.Image(label="Graph"),
+        gr.Image(label="Graph")
     ],
     title="Capital Savvy",
     allow_flagging="manual",
