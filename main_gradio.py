@@ -32,8 +32,6 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
-We implemented a flagging feature which keeps track on our server of any discoveries of fraudulent transaction activity. This feature can be extended in a number of ways, for example, automatic notification of credit card holders.
-
 <hr>
 """
 
@@ -70,6 +68,47 @@ def predict_fraud(uploaded_file):
 	cumulative_predictions.extend(predictions)
 	cumulative_count += len(predictions)
 	prediction_counts.append(cumulative_count)
+	
+
+
+	# Plotting 
+	plt.figure(figsize=(10, 6)) 
+	data = [2, 55] 
+	plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['blue', 'orange']) 
+	plt.legend() 
+	plt.grid(True) 
+	plt.tight_layout() 
+	plt.savefig("fraud.png") 
+	plt.show()
+
+	plt.figure(figsize=(10, 6))
+	labels = ['Fraud', 'Not Fraud']
+	plt.scatter(labels, data, color='red')
+	plt.xlabel('Category')
+	plt.ylabel('Count')
+	plt.title('Fraud vs Not Fraud')
+	plt.grid(True)
+	plt.tight_layout()
+	plt.savefig("fraud_scatter.png")
+	plt.show()
+	
+    plt.figure(figsize=(10, 6))
+    sns.countplot(x=np.concatenate(cumulative_predictions))
+	plt.title('Cumulative Distribution of Predictions')
+	plt.xlabel('Predicted Class')
+	plt.ylabel('Count')
+	plt.xticks([0, 1], ['Fraudulent', 'Not Fraudulent'])
+	plt.tight_layout()
+	plt.savefig("cumulative_prediction_distribution.png")
+	plt.close()
+    
+
+
+	
+    
+	
+
+    
 
 	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
 
@@ -95,6 +134,7 @@ iface = gr.Interface(
 	bottom: 10px;
 	width: 120px;
 	height: 120px;
+	background: url('fradpic.png') no-repeat center center;
 	background-size: contain;
 	}
 	footer {
