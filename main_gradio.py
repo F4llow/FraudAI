@@ -32,6 +32,8 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
+We implemented a flagging feature which keeps track on our server of any discoveries of fraudulent transaction activity. This feature can be extended in a number of ways, for example, automatic notification of credit card holders.
+
 <hr>
 """
 
@@ -100,7 +102,65 @@ def predict_fraud(uploaded_file):
 	plt.savefig("fraud_scatter.png")
 	plt.show()
 
-	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
+	# 1. Boxplot
+	plt.figure(figsize=(10, 6))
+	sns.boxplot(x='category', y='value', data=data)
+	plt.title('Boxplot of Values by Category')
+	plt.xlabel('Category')
+	plt.ylabel('Value')
+	plt.tight_layout()
+	plt.savefig("boxplot.png")
+	plt.close()
+
+	# 2. Scatter plot
+	plt.figure(figsize=(10, 6))
+	x = np.random.rand(100)
+	y = np.random.rand(100)
+	plt.scatter(x, y, color='blue')
+	plt.title('Scatter Plot')
+	plt.xlabel('X')
+	plt.ylabel('Y')
+	plt.tight_layout()
+	plt.savefig("scatter_plot.png")
+	plt.close()
+
+	# 3. Bar plot
+	plt.figure(figsize=(10, 6))
+	x = ['A', 'B', 'C', 'D', 'E']
+	y = [10, 20, 15, 25, 30]
+	plt.bar(x, y, color='orange')
+	plt.title('Bar Plot')
+	plt.xlabel('Categories')
+	plt.ylabel('Values')
+	plt.tight_layout()
+	plt.savefig("bar_plot.png")
+	plt.close()
+
+	# 4. Line plot
+	plt.figure(figsize=(10, 6))
+	x = np.arange(0, 10, 0.1)
+	y = np.sin(x)
+	plt.plot(x, y, color='purple')
+	plt.title('Sine Wave')
+	plt.xlabel('X')
+	plt.ylabel('Y')
+	plt.tight_layout()
+	plt.savefig("line_plot.png")
+	plt.close()
+
+	# 5. Histogram
+	plt.figure(figsize=(10, 6))
+	data = np.random.normal(loc=0, scale=1, size=1000)
+	plt.hist(data, bins=30, color='gray', alpha=0.7)
+	plt.title('Histogram of Random Data')
+	plt.xlabel('Value')
+	plt.ylabel('Frequency')
+	plt.tight_layout()
+	plt.savefig("histogram.png")
+	plt.close()
+
+
+	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png", "boxplot.png", "scatter_plot.png", "bar_plot.png", "line_plot.png"
 
 
 # Create the Gradio interface
