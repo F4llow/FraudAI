@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
 
-      
 from keras.models import load_model
 
 # PHILIP ONLY, DO NOT USE THE PHILIP FLAG UNLESS YOU ARE PHILIP
@@ -26,18 +25,17 @@ description = """
   gtag('config', 'G-X3EM9MXYMM');
 </script>
 
-<hr> 
+<hr>
 In the span of 12 hours, we brainstormed, designed, and implemented a full stack web application solving the problem of fraud detection in credit card transactions.
 
 [Read about this project on Devpost!](https://devpost.com/software/capitalsavvy)
 
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
+<!-- Image display -->
+<img src="fradpic.png" alt="Fraud Detection Image" style="max-width:100%;">
+<hr>
 """
-
-
-remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
-
 
 # Load the trained model
 clf = load_model("neural_network_model.h5")
@@ -78,24 +76,10 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
 
+    # HTML content to display an image
+    html_content = '<img src="fradpic.png" alt="Fraud Detection Visualization" style="width:100%;">'
     
-    # Plotting
-    plt.figure(figsize=(10, 6))
-    data = [2, 50]
-    plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green'])
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig("fraud.png")
-    plt.show()
-
-
-
-
-
-
-
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png"
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", html_content
 
 # Create the Gradio interface
 iface = gr.Interface(
@@ -104,8 +88,8 @@ iface = gr.Interface(
     outputs=[
         gr.Text(label="Predictions"),
         gr.Image(label="Graph"),
-        gr.Image(label="Graph")
-
+        gr.Image(label="Graph"),
+        gr.HTML(label="Fraud Detection Image")
     ],
     title="Capital Savvy",
     allow_flagging="manual",
@@ -117,7 +101,7 @@ iface = gr.Interface(
         bottom: 10px;
         width: 120px;
         height: 120px;
-        background: url('fradpic_figure.png') no-repeat center center;
+        background: url('fradpic.png') no-repeat center center;
         background-size: contain;
     }
     footer {
@@ -137,3 +121,4 @@ if remote:
                  server_name="capitalsavvy.app")
 else:
     iface.launch(share=not remote)
+
