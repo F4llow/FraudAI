@@ -62,7 +62,7 @@ def predict_fraud(uploaded_file):
     
     # Generate visualization for cumulative predictions over time
     plt.figure(figsize=(10, 6))
-    sns.lineplot(x=range(1, len(prediction_counts) + 1), y=prediction_counts)
+    sns.lineplot(x=range(1, len(prediction_counts) + 1), y=550000)
     plt.title('Cumulative Predictions Over Time')
     plt.xlabel('Submission Count')
     plt.ylabel('Cumulative Prediction Count')
