@@ -15,7 +15,10 @@ remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 from keras.models import load_model
 
 
-
+"""
+with open("model.pkl", "rb") as f:
+    clf = pickle.load(f)
+"""
 # Load the trained 
 clf = load_model("neural_network_model.h5")
 
@@ -60,16 +63,7 @@ def predict_fraud(uploaded_file):
     #cumulative_predictions = [pred[0] for pred in cumulative_predictions]
 
     
-    # Generate visualization for cumulative predictions over time
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(x=range(1, len(prediction_counts) + 1), y=550000)
-    plt.title('Cumulative Predictions Over Time')
-    plt.xlabel('Submission Count')
-    plt.ylabel('Cumulative Prediction Count')
-    plt.tight_layout()
-    plt.savefig("cumulative_predictions_over_time.png")
-    plt.close()
-
+    
     
     # Generate count plot for cumulative prediction distribution
     plt.figure(figsize=(10, 6))
