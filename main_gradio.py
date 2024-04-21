@@ -46,13 +46,14 @@ prediction_counts = []
 def predict_fraud(uploaded_file):
 	global cumulative_predictions, cumulative_count, prediction_counts
 	#df = pd.read_csv('sample.csv')
+
 	"""
 	if uploaded_file is None:
 	df = pd.read_csv('sample.csv')
 	else:
 	df = pd.read_csv(uploaded_file)
-
 	"""
+
 	df = pd.read_csv(uploaded_file)
 
 	if 'id' in df.columns:
@@ -81,7 +82,7 @@ def predict_fraud(uploaded_file):
 
 	plt.figure(figsize=(10, 6))
 	labels = ['Fraud', 'Not Fraud']
-	plt.scatter(labels, data, color='red')
+	plt.bar(labels, data, color=['blue', 'orange'])
 	plt.xlabel('Category')
 	plt.ylabel('Count')
 	plt.title('Fraud vs Not Fraud')
@@ -91,7 +92,7 @@ def predict_fraud(uploaded_file):
 	plt.show()
 	
 	plt.figure(figsize=(10, 6))
-	sns.countplot(x=np.concatenate(cumulative_predictions))
+	sns.countplot(x=np.concatenate(cumulative_predictions), color='orange')
 	plt.title('Cumulative Distribution of Predictions')
 	plt.xlabel('Predicted Class')
 	plt.ylabel('Count')
@@ -99,14 +100,6 @@ def predict_fraud(uploaded_file):
 	plt.tight_layout()
 	plt.savefig("cumulative_prediction_distribution.png")
 	plt.close()
-    
-
-
-	
-    
-	
-
-    
 
 	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "fraud.png", "fraud_scatter.png", "cumulative_prediction_distribution.png"
 
