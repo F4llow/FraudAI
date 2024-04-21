@@ -45,10 +45,15 @@ prediction_counts = []
 
 def predict_fraud(uploaded_file):
     global cumulative_predictions, cumulative_count, prediction_counts
+    #df = pd.read_csv('sample.csv')
+    """
     if uploaded_file is None:
         df = pd.read_csv('sample.csv')
     else:
         df = pd.read_csv(uploaded_file)
+    
+    """
+    df = pd.read_csv(uploaded_file)
 
     if 'id' in df.columns:
         df = df.drop(['id'], axis=1)
@@ -90,7 +95,8 @@ def predict_fraud(uploaded_file):
 # Create the Gradio interface
 iface = gr.Interface(
     fn=predict_fraud,
-    inputs=[gr.File(label="Upload a CSV File")],
+    
+    inputs=gr.File(label="Upload a CSV File", value='sample.csv'),
     outputs=[
         gr.Text(label="Predictions"),
         gr.Image(label="Graph"),
