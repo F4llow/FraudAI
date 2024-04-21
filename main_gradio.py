@@ -68,8 +68,6 @@ def predict_fraud(uploaded_file):
 	cumulative_predictions.extend(predictions)
 	cumulative_count += len(predictions)
 	prediction_counts.append(cumulative_count)
-	
-
 
 	# Plotting 
 	plt.figure(figsize=(10, 6)) 
@@ -110,7 +108,7 @@ def predict_fraud(uploaded_file):
 
     
 
-	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
+	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "fraud.png", "fraud_scatter.png", "cumulative_prediction_distribution.png"
 
 
 # Create the Gradio interface
