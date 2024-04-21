@@ -18,11 +18,11 @@ description = """
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3EM9MXYMM"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-  gtag('config', 'G-X3EM9MXYMM');
+	gtag('config', 'G-X3EM9MXYMM');
 </script>
 
 <hr>
@@ -44,118 +44,118 @@ cumulative_count = 0
 prediction_counts = []
 
 def predict_fraud(uploaded_file):
-    global cumulative_predictions, cumulative_count, prediction_counts
-    #df = pd.read_csv('sample.csv')
-    """
-    if uploaded_file is None:
-        df = pd.read_csv('sample.csv')
-    else:
-        df = pd.read_csv(uploaded_file)
-    
-    """
-    df = pd.read_csv(uploaded_file)
+	global cumulative_predictions, cumulative_count, prediction_counts
+	#df = pd.read_csv('sample.csv')
+	"""
+	if uploaded_file is None:
+	df = pd.read_csv('sample.csv')
+	else:
+	df = pd.read_csv(uploaded_file)
 
-    if 'id' in df.columns:
-        df = df.drop(['id'], axis=1)
+	"""
+	df = pd.read_csv(uploaded_file)
 
-    x = df.drop(['Class'], axis=1)
-    stn_scaler = StandardScaler()
-    x_scaled = stn_scaler.fit_transform(x)
-    X = pd.DataFrame(x_scaled, columns=x.columns)
+	if 'id' in df.columns:
+		df = df.drop(['id'], axis=1)
 
-    predictions = clf.predict(X)
+	x = df.drop(['Class'], axis=1)
+	stn_scaler = StandardScaler()
+	x_scaled = stn_scaler.fit_transform(x)
+	X = pd.DataFrame(x_scaled, columns=x.columns)
 
-    cumulative_predictions.extend(predictions)
-    cumulative_count += len(predictions)
-    prediction_counts.append(cumulative_count)
+	predictions = clf.predict(X)
 
-    plt.figure(figsize=(10, 6))
-    sns.countplot(x=np.concatenate(cumulative_predictions))
-    plt.title('Cumulative Distribution of Predictions')
-    plt.xlabel('Predicted Class')
-    plt.ylabel('Count')
-    plt.xticks([0, 1], ['Fraudulent', 'Not Fraudulent'])
-    plt.tight_layout()
-    plt.savefig("cumulative_prediction_distribution.png")
-    plt.close()
+	cumulative_predictions.extend(predictions)
+	cumulative_count += len(predictions)
+	prediction_counts.append(cumulative_count)
 
-    # Plotting 
-    plt.figure(figsize=(10, 6)) 
-    data = [2, 55] 
-    plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green']) 
-    plt.legend() 
-    plt.grid(True) 
-    plt.tight_layout() 
-    plt.savefig("fraud.png") 
-    plt.show()
+	plt.figure(figsize=(10, 6))
+	sns.countplot(x=np.concatenate(cumulative_predictions))
+	plt.title('Cumulative Distribution of Predictions')
+	plt.xlabel('Predicted Class')
+	plt.ylabel('Count')
+	plt.xticks([0, 1], ['Fraudulent', 'Not Fraudulent'])
+	plt.tight_layout()
+	plt.savefig("cumulative_prediction_distribution.png")
+	plt.close()
 
-    plt.figure(figsize=(10, 6))
-    labels = ['Fraud', 'Not Fraud']
-    plt.scatter(labels, data, color='red')
-    plt.xlabel('Category')
-    plt.ylabel('Count')
-    plt.title('Fraud vs Not Fraud')
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig("fraud_scatter.png")
-    plt.show()
+	# Plotting 
+	plt.figure(figsize=(10, 6)) 
+	data = [2, 55] 
+	plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green']) 
+	plt.legend() 
+	plt.grid(True) 
+	plt.tight_layout() 
+	plt.savefig("fraud.png") 
+	plt.show()
 
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
+	plt.figure(figsize=(10, 6))
+	labels = ['Fraud', 'Not Fraud']
+	plt.scatter(labels, data, color='red')
+	plt.xlabel('Category')
+	plt.ylabel('Count')
+	plt.title('Fraud vs Not Fraud')
+	plt.grid(True)
+	plt.tight_layout()
+	plt.savefig("fraud_scatter.png")
+	plt.show()
+
+	return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", "fraud_scatter.png"
 
 
 # Create the Gradio interface
 iface = gr.Interface(
-    fn=predict_fraud,
-    
-    inputs=gr.File(label="Upload a CSV File", value='sample.csv'),
-    outputs=[
-        gr.Text(label="Predictions"),
-        gr.Image(label="Graph"),
-        gr.Image(label="Graph"),
-        gr.Image(label="Graph")
-    ],
-    title="Capital Savvy",
-    allow_flagging="manual",
-    css="""
-    body::after {
-        content: "";
-        position: fixed;
-        right: 10px;
-        bottom: 10px;
-        width: 120px;
-        height: 120px;
-        background: url('fradpic.png') no-repeat center center;
-        background-size: contain;
-    }
-    footer {
-        visibility: hidden;  /* Hide the footer */
-    }
-    """,
-    js="async () => {\
-		let result = await (async () => {\
-		    var body = document.getElementsByTagName('body')[0];\
-		    var elem = document.createElement('img');\
-		    elem.src = 'https://i.imgur.com/Eg2ihWI.png';\
-                    elem.style.width = '50%';\
-                    elem.style.height = '50%';\
-                    elem.style.margin= 'auto auto auto auto';\
-                    body.appendChild(document.createElement('br'));\
-                    body.appendChild(document.createElement('br'));\
-                    body.appendChild(document.createElement('br'));\
-		    body.appendChild(elem);\
-		})();\
+	fn=predict_fraud,
+
+	inputs=gr.File(label="Upload a CSV File", value='sample.csv'),
+	outputs=[
+	gr.Text(label="Predictions"),
+	gr.Image(label="Graph"),
+	gr.Image(label="Graph"),
+	gr.Image(label="Graph")
+	],
+	title="Capital Savvy",
+	allow_flagging="manual",
+	css="""
+	body::after {
+	content: "";
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+	width: 120px;
+	height: 120px;
+	background: url('fradpic.png') no-repeat center center;
+	background-size: contain;
+	}
+	footer {
+	visibility: hidden;  /* Hide the footer */
+	}
+	""",
+	js="async () => {\
+	let result = await (async () => {\
+	var body = document.getElementsByTagName('body')[0];\
+	var elem = document.createElement('img');\
+	elem.src = 'https://i.imgur.com/Eg2ihWI.png';\
+	elem.style.width = '50%';\
+	elem.style.height = '50%';\
+	elem.style.margin= 'auto auto auto auto';\
+	body.appendChild(document.createElement('br'));\
+	body.appendChild(document.createElement('br'));\
+	body.appendChild(document.createElement('br'));\
+	body.appendChild(elem);\
+	})();\
 	}",
-    description=description
+	description=description
 )
 
 # Launch settings based on environment
 if remote:
-    iface.launch(share=False,
-                 debug=False,
-                 server_port=443,
-                 ssl_certfile="../certs/fullchain.pem",
-                 ssl_keyfile="../certs/privkey.pem",
-                 server_name="capitalsavvy.app")
+	iface.launch(share=False,
+	debug=False,
+	server_port=443,
+	ssl_certfile="../certs/fullchain.pem",
+	ssl_keyfile="../certs/privkey.pem",
+	server_name="capitalsavvy.app")
 else:
-    iface.launch(share=not remote)
+	iface.launch(share=not remote)
 
