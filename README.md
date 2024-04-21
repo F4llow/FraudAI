@@ -2,4 +2,6 @@
 
 # Fraud Credit Card Detection
 
-https://devpost.com/software/capitalsavvy
+DEVPOST: https://devpost.com/software/capitalsavvy
+SITE: https://capitalsavvy.app/
+DEMO: https://youtu.be/Vcrn5nUqmts
