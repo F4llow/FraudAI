@@ -2,12 +2,30 @@ import numpy as np
 import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
+from keras.models import load_model
 import gradio as gr
 import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
 
+      
 from keras.models import load_model
+
+# PHILIP ONLY, DO NOT USE THE PHILIP FLAG UNLESS YOU ARE PHILIP
+# If the philip flag is passed, use the settings to deploy to racknerd.
+remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
+
+description = """
+
+<hr> 
+In the span of 12 hours, we brainstormed, designed, and implemented a full stack web application solving the problem of fraud detection in credit card transactions.
+
+[Read about this project on Devpost!](https://devpost.com/software/capitalsavvy)
+
+Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
+
+"""
+
 
 remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 
@@ -51,18 +69,11 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
 
-    # Plotting
-    fraud_data = [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]  # data from prediction
-    not_fraud_data = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]  #data from prediciton
-    time_points = range(1, len(fraud_data) + 1)
-
+    
     # Plotting
     plt.figure(figsize=(10, 6))
-    plt.plot(time_points, fraud_data, label='Fraudulent', marker='o')
-    plt.plot(time_points, not_fraud_data, label='Not Fraudulent', marker='o')
-    plt.title('Occurrences of Fraud and Not Fraud Over Data Collection')
-    plt.xlabel('Time')
-    plt.ylabel('Occurrences')
+    data = [2, 50]
+    plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green'])
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -87,7 +98,7 @@ iface = gr.Interface(
         gr.Image(label="Graph")
 
     ],
-    title="Credit Card Fraud Detection",
+    title="Capital Savvy",
     allow_flagging="manual",
     css="""
     body::after {
@@ -104,7 +115,7 @@ iface = gr.Interface(
         visibility: hidden;  /* Hide the footer */
     }
     """,
-    description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used."
+    description=description
 )
 
 # Launch settings based on environment
