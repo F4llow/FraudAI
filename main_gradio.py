@@ -45,14 +45,6 @@ prediction_counts = []
 
 def predict_fraud(uploaded_file):
 	global cumulative_predictions, cumulative_count, prediction_counts
-	#df = pd.read_csv('sample.csv')
-
-	"""
-	if uploaded_file is None:
-	df = pd.read_csv('sample.csv')
-	else:
-	df = pd.read_csv(uploaded_file)
-	"""
 
 	df = pd.read_csv(uploaded_file)
 
@@ -73,7 +65,7 @@ def predict_fraud(uploaded_file):
 	# Plotting 
 	plt.figure(figsize=(10, 6)) 
 	data = [2, 55] 
-	plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['blue', 'orange']) 
+	plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['blue', '#F97306']) 
 	plt.legend() 
 	plt.grid(True) 
 	plt.tight_layout() 
@@ -82,7 +74,7 @@ def predict_fraud(uploaded_file):
 
 	plt.figure(figsize=(10, 6))
 	labels = ['Fraud', 'Not Fraud']
-	plt.bar(labels, data, color=['blue', 'orange'])
+	plt.bar(labels, data, color=['blue', '#F97306'])
 	plt.xlabel('Category')
 	plt.ylabel('Count')
 	plt.title('Fraud vs Not Fraud')
@@ -92,7 +84,7 @@ def predict_fraud(uploaded_file):
 	plt.show()
 	
 	plt.figure(figsize=(10, 6))
-	sns.countplot(x=np.concatenate(cumulative_predictions), color='orange')
+	sns.countplot(x=np.concatenate(cumulative_predictions), color='#F97306')
 	plt.title('Cumulative Distribution of Predictions')
 	plt.xlabel('Predicted Class')
 	plt.ylabel('Count')
@@ -125,7 +117,6 @@ iface = gr.Interface(
 	bottom: 10px;
 	width: 120px;
 	height: 120px;
-	background: url('fradpic.png') no-repeat center center;
 	background-size: contain;
 	}
 	footer {
