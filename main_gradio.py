@@ -33,7 +33,7 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
 <!-- Image display -->
-<img src="fradpic.png" alt="Fraud Detection Image" style="max-width:100%;">
+<div id="imghere"></div>
 <hr>
 """
 
@@ -108,7 +108,11 @@ iface = gr.Interface(
         visibility: hidden;  /* Hide the footer */
     }
     """,
-    js="async () => {console.log('kekW')}",
+    js="async () => {\
+	  var imgTag = document.getElementById('imghere');\
+	  \
+	  imgTag.innerHTML= \"<img src=\https://i.imgur.com/Eg2ihWI.png'\'></img>\";\
+	}",
     description=description
 )
 
