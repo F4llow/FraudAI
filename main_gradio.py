@@ -74,7 +74,18 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
 
+    # Plotting 
+    plt.figure(figsize=(10, 6)) 
+    data = [2, 50] 
+    plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green']) 
+    plt.legend() 
+    plt.grid(True) 
+    plt.tight_layout() 
+    plt.savefig("fraud.png") 
+    plt.show()
+
     return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png"
+
 
 # Create the Gradio interface
 iface = gr.Interface(
