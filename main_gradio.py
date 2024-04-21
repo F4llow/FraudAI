@@ -33,7 +33,11 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
 <!-- Image display -->
+<<<<<<< Updated upstream
 <div id="imghere"></div>
+=======
+<img src="/home/cropthecoder/Documents/FraudAI/fradpic.png" alt="Fraud Detection Image" style="max-width:100%;">
+>>>>>>> Stashed changes
 <hr>
 """
 
