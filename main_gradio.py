@@ -16,6 +16,15 @@ from keras.models import load_model
 remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 
 description = """
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3EM9MXYMM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3EM9MXYMM');
+</script>
 
 <hr> 
 In the span of 12 hours, we brainstormed, designed, and implemented a full stack web application solving the problem of fraud detection in credit card transactions.
