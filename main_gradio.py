@@ -29,11 +29,23 @@ cumulative_count = 0
 prediction_counts = []
 
 def predict_fraud(uploaded_file):
-    global cumulative_predictions, cumulative_count, prediction_counts
 
+    img = plt.imread("fradpic.png")
+    # Display the fradpic.png image
+    plt.figure(figsize=(6, 6))
+    plt.imshow(img)
+    plt.axis('off')  # Turn off axis
+    plt.title('Fraudulent Transaction Sample')
+    plt.savefig("fradpic_figure.png")
+    plt.close()
+
+
+
+    global cumulative_predictions, cumulative_count, prediction_counts
     if uploaded_file is None:
         # Load the default CSV file if no file is uploaded
         df = pd.read_csv('sample.csv')
+        
     else:
         # Read the uploaded file
         df = pd.read_csv(uploaded_file)
@@ -75,22 +87,45 @@ def predict_fraud(uploaded_file):
     plt.tight_layout()
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
+
+
+    
     
     
 
     # Return the predictions and visualizations
     print("Returning predictions...")
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png"
+    
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fradpic.png"
+
+    
 
 # Create the Gradio interface
-iface = gr.Interface(fn=predict_fraud,
-                     inputs=gr.File(label="Upload a CSV File"),
-                     outputs=["text", "image"],
-                     title="Credit Card Fraud Detection",
-                     allow_flagging="manual",
-                     css="footer {visibility: hidden}",
-                     description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.")
-                     
+iface = gr.Interface(
+    fn=predict_fraud,
+    inputs=[gr.File(label="Upload a CSV File")], 
+    outputs=[
+        gr.Text(label="Predictions"), 
+        gr.Image(label="Fraud"),  # Changed to file type for custom CSS
+        gr.Image(label="Graph")   # Changed to file type for custom CSS
+    ],
+    title="Credit Card Fraud Detection",
+    allow_flagging="manual",
+    css="""
+    .output img:nth-of-type(2) {
+        float: right;  /* Align the graph to the right */
+    }
+    .output {
+        display: flex;  /* Enable flexbox for layout */
+        flex-direction: row-reverse;  /* Reverse the order of elements */
+    }
+    footer {
+        visibility: hidden;  /* Hide the footer */
+    }
+    """,
+    description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used."
+)
+           
 
 
 # If the app is running on racknerd, use server settings. Otherwise, run locally.
