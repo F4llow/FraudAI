@@ -2,17 +2,26 @@ import numpy as np
 import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
+from keras.models import load_model
 import gradio as gr
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 import sys
 
 # PHILIP ONLY, DO NOT USE THE PHILIP FLAG UNLESS YOU ARE PHILIP
 # If the philip flag is passed, use the settings to deploy to racknerd.
 remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 
-from keras.models import load_model
+description = """
+
+<hr> 
+In the span of 12 hours, we brainstormed, designed, and implemented a full stack web application solving the problem of fraud detection in credit card transactions.
+
+[Read about this project on Devpost!](https://devpost.com/software/capitalsavvy)
+
+Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
+
+"""
 
 
 """
@@ -109,7 +118,7 @@ iface = gr.Interface(
         gr.Image(label="Fraud"),  # Changed to file type for custom CSS
         gr.Image(label="Graph")   # Changed to file type for custom CSS
     ],
-    title="Credit Card Fraud Detection",
+    title="Capital Savvy",
     allow_flagging="manual",
     css="""
     .output img:nth-of-type(2) {
@@ -123,7 +132,7 @@ iface = gr.Interface(
         visibility: hidden;  /* Hide the footer */
     }
     """,
-    description="Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used."
+    description=description
 )
            
 
