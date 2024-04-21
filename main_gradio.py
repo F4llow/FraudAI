@@ -118,6 +118,12 @@ iface = gr.Interface(
 		    var body = document.getElementsByTagName('body')[0];\
 		    var elem = document.createElement('img');\
 		    elem.src = 'https://i.imgur.com/Eg2ihWI.png';\
+                    elem.style.width = '50%';\
+                    elem.style.height = '50%';\
+                    elem.style.margin= 'auto auto auto auto';\
+                    body.appendChild(document.createElement('br'));\
+                    body.appendChild(document.createElement('br'));\
+                    body.appendChild(document.createElement('br'));\
 		    body.appendChild(elem);\
 		})();\
 	}",
