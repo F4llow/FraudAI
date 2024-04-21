@@ -15,10 +15,7 @@ remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 from keras.models import load_model
 
 
-"""
-with open("model.pkl", "rb") as f:
-    clf = pickle.load(f)
-"""
+
 # Load the trained 
 clf = load_model("neural_network_model.h5")
 
