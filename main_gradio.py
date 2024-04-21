@@ -33,11 +33,7 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
 <!-- Image display -->
-<<<<<<< Updated upstream
 <div id="imghere"></div>
-=======
-<img src="/home/cropthecoder/Documents/FraudAI/fradpic.png" alt="Fraud Detection Image" style="max-width:100%;">
->>>>>>> Stashed changes
 <hr>
 """
 
@@ -80,6 +76,19 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
 
+    # Plotting 
+    plt.figure(figsize=(10, 6)) 
+    data = [2, 50] 
+    plt.pie(data, labels = ['Fraud', 'Not Fraud'], colors=['red', 'green']) 
+    plt.legend() 
+    plt.grid(True) 
+    plt.tight_layout() 
+    plt.savefig("fraud.png") 
+    plt.show()
+
+
+
+
     # HTML content to display an image
     html_content = '<img src="fradpic.png" alt="Fraud Detection Visualization" style="width:100%;">'
     
@@ -115,7 +124,7 @@ iface = gr.Interface(
     js="async () => {\
 	  var imgTag = document.getElementById('imghere');\
 	  \
-	  imgTag.innerHTML= \"<img src=\https://i.imgur.com/Eg2ihWI.png'\'></img>\";\
+	  imgTag.innerHTML= \"<img src=\'https://i.imgur.com/Eg2ihWI.png\'></img>\";\
 	}",
     description=description
 )
