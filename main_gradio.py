@@ -5,15 +5,23 @@ from sklearn.preprocessing import StandardScaler
 import gradio as gr
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 import sys
 
 # PHILIP ONLY, DO NOT USE THE PHILIP FLAG UNLESS YOU ARE PHILIP
 # If the philip flag is passed, use the settings to deploy to racknerd.
 remote = len(sys.argv) > 1 and sys.argv[1] == "--philip"
 
-# Load the trained model
+from keras.models import load_model
+
+
+"""
 with open("model.pkl", "rb") as f:
     clf = pickle.load(f)
+"""
+# Load the trained 
+clf = load_model("neural_network_model.h5")
+
 
 # Initialize global variables to store cumulative predictions
 cumulative_predictions = []
@@ -43,12 +51,18 @@ def predict_fraud(uploaded_file):
     # Make predictions
     print("Making predictions...")
     predictions = clf.predict(X)
+    print("Predictions:", predictions)
+   
 
     # Update cumulative predictions
     cumulative_predictions.extend(predictions)
     cumulative_count += len(predictions)
     prediction_counts.append(cumulative_count)
+    print("prediction_counts:", prediction_counts)
+    
+    #cumulative_predictions = [pred[0] for pred in cumulative_predictions]
 
+    
     # Generate visualization for cumulative predictions over time
     plt.figure(figsize=(10, 6))
     sns.lineplot(x=range(1, len(prediction_counts) + 1), y=prediction_counts)
@@ -59,9 +73,10 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_predictions_over_time.png")
     plt.close()
 
+    
     # Generate count plot for cumulative prediction distribution
     plt.figure(figsize=(10, 6))
-    sns.countplot(x=cumulative_predictions)
+    sns.countplot(x=np.concatenate(cumulative_predictions))
     plt.title('Cumulative Distribution of Predictions')
     plt.xlabel('Predicted Class')
     plt.ylabel('Count')
@@ -69,10 +84,12 @@ def predict_fraud(uploaded_file):
     plt.tight_layout()
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
+    
+    
 
     # Return the predictions and visualizations
     print("Returning predictions...")
-    return ["Fraudulent" if pred == 1 else "Not Fraudulent" for pred in predictions], "cumulative_predictions_over_time.png", "cumulative_prediction_distribution.png"
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_predictions_over_time.png", "cumulative_prediction_distribution.png"
 
 # Create the Gradio interface
 iface = gr.Interface(fn=predict_fraud,
