@@ -31,10 +31,6 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 [Read about this project on Devpost!](https://devpost.com/software/capitalsavvy)
 
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
-
-<!-- Image display -->
-<div id="imghere"></div>
-<hr>
 """
 
 # Load the trained model
