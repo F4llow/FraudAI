@@ -80,12 +80,12 @@ def predict_fraud(uploaded_file):
 
     # Return the predictions and visualizations
     print("Returning predictions...")
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_predictions_over_time.png", "cumulative_prediction_distribution.png"
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png"
 
 # Create the Gradio interface
 iface = gr.Interface(fn=predict_fraud,
                      inputs=gr.File(label="Upload a CSV File"),
-                     outputs=["text", "image", "image"],
+                     outputs=["text", "image"],
                      title="Credit Card Fraud Detection",
                      allow_flagging="manual",
                      css="footer {visibility: hidden}",
