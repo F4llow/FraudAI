@@ -32,8 +32,6 @@ In the span of 12 hours, we brainstormed, designed, and implemented a full stack
 
 Upload a CSV file containing credit card transactions data to detect fraudulent transactions. If no file is uploaded, the default 'sample.csv' file will be used.
 
-<!-- Image display -->
-<div id="imghere"></div>
 <hr>
 """
 
@@ -76,10 +74,7 @@ def predict_fraud(uploaded_file):
     plt.savefig("cumulative_prediction_distribution.png")
     plt.close()
 
-    # HTML content to display an image
-    html_content = '<img src="fradpic.png" alt="Fraud Detection Visualization" style="width:100%;">'
-    
-    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png", html_content
+    return ["Fraudulent" if pred >= .5 else "Not Fraudulent" for pred in predictions], "cumulative_prediction_distribution.png", "fraud.png"
 
 # Create the Gradio interface
 iface = gr.Interface(
@@ -89,7 +84,6 @@ iface = gr.Interface(
         gr.Text(label="Predictions"),
         gr.Image(label="Graph"),
         gr.Image(label="Graph"),
-        gr.HTML(label="Fraud Detection Image")
     ],
     title="Capital Savvy",
     allow_flagging="manual",
@@ -109,9 +103,12 @@ iface = gr.Interface(
     }
     """,
     js="async () => {\
-	  var imgTag = document.getElementById('imghere');\
-	  \
-	  imgTag.innerHTML= \"<img src=\https://i.imgur.com/Eg2ihWI.png'\'></img>\";\
+		let result = await (async () => {\
+		    var body = document.getElementsByTagName('body')[0];\
+		    var elem = document.createElement('img');\
+		    elem.src = 'https://i.imgur.com/Eg2ihWI.png';\
+		    body.appendChild(elem);\
+		})();\
 	}",
     description=description
 )
