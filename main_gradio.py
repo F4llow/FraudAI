@@ -95,7 +95,6 @@ iface = gr.Interface(
 	bottom: 10px;
 	width: 120px;
 	height: 120px;
-	background: url('fradpic.png') no-repeat center center;
 	background-size: contain;
 	}
 	footer {
