@@ -91,4 +91,4 @@ if remote:
                     ssl_keyfile="../certs/privkey.pem",
                     server_name="capitalsavvy.app")
 else:
-    iface.launch(share=True)
+    iface.launch(share=not remote)
