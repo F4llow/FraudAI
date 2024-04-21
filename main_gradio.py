@@ -92,8 +92,8 @@ def predict_fraud(uploaded_file):
 	plt.savefig("fraud_scatter.png")
 	plt.show()
 	
-    plt.figure(figsize=(10, 6))
-    sns.countplot(x=np.concatenate(cumulative_predictions))
+	plt.figure(figsize=(10, 6))
+	sns.countplot(x=np.concatenate(cumulative_predictions))
 	plt.title('Cumulative Distribution of Predictions')
 	plt.xlabel('Predicted Class')
 	plt.ylabel('Count')
